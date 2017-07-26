@@ -16,3 +16,20 @@ df.printSchema()
 df.show()
 df.columns
 df.describe().show()
+
+# select -> column, head -> row
+df.select('age').show()
+type(df.select('age'))
+df.head(2)[0]
+type(df.head(2)[1])
+df.select(['age','name']).show()
+df.withColumn('double_age',df['age']*2).show()
+df.show()
+df.withColumnRenamed('age','new_age').show()
+
+# SQL with Spark
+df.createOrReplaceTempView('people')
+results = spark.sql('SELECT * FROM people')
+results.show()
+new_result = spark.sql('select * from people where age>20')
+new_result.show()
